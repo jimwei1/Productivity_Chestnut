@@ -24,7 +24,7 @@ body {
   justify-content: center;
   align-items: center;
   text-shadow: 2px 2px #000;
-  background-image: url('image.png');
+  background-image: url('./images/image.png');
   background-size: cover;
   background-position: center;
   box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
@@ -51,7 +51,7 @@ body {
   font-size: 1rem;
   width: 30px;
   height: 30px;
-  background-image: url('profile.png');
+  background-image: url('./images/profile.png');
   background-size: cover;
   background-position: center;
 }
@@ -59,7 +59,7 @@ body {
   font-size: 1rem;
   width: 30px;
   height: 30px;
-  background-image: url('settings.png');
+  background-image: url('./images/settings.png');
   background-size: cover;
   background-position: center;
   
