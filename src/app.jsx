@@ -1,5 +1,10 @@
+import React from "react";
+import ReactDOM from "react-dom";
+import { HelmetProvider } from 'react-helmet-async';
 import { Button, CircularProgress, TextField } from '@mui/material';
 import { useState } from 'react';
+
+
 
 function App() {
   const [timeLeft, setTimeLeft] = useState(0);
@@ -39,3 +44,13 @@ function App() {
     </div>
   );
 }
+
+// Render the site https://reactjs.org/docs/react-dom.html#render
+ReactDOM.render(
+  <React.StrictMode>
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
+  </React.StrictMode>,
+  document.getElementById("root")
+);
