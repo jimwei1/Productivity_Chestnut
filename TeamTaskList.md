@@ -2,7 +2,7 @@
 
 # Sprint 2: Component Design & Testing
 ## Core Components
-- Timer
+- Timer (Thomas)
 - Site Blocking
     - AI Suggestion (GPT)
     - Stat-based model
