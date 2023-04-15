@@ -1,4 +1,4 @@
-import {constants} from "."  // fix this when refactoring
+import {constants} from "../constants/constants"  // fix this when refactoring
 const blockList = require('./blockList.json')
 
 

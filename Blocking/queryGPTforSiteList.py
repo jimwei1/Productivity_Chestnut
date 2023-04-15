@@ -1,5 +1,5 @@
 import openai
-import constants as c
+import constants.constants as c
 import json
 
 
