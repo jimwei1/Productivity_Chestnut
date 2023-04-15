@@ -1,4 +1,4 @@
-import {typeChecking} from "." // fix later?
+import {typeChecking, gptHandling} from "." // fix later?
 
 
 class task {
@@ -34,5 +34,10 @@ class task {
 
     addToDatabase(){
         ;
+    }
+
+    getGPTEstimate(){
+        query = 'Please estimate how long this task will take in hours given its description, your answer should only be a single number: ${this.description}'
+        this.time = gptHandling.getGPTEstimate(query)
     }
 }
