@@ -8,7 +8,7 @@ window.onload = function (e) {
       <div>
         
         <div id="score">
-            <button @click="blockWebsites">Block websites</button>
+            <button @click="blockWebsites">Score</button>
         </div>
         <div id="timer-container">
             <input type="number" v-model="timerValue" min="1" placeholder="Enter time in minutes">
@@ -41,8 +41,7 @@ window.onload = function (e) {
         updateTimer() {
           const minutes = Math.floor(this.timeLeft / 60).toString().padStart(2, "0");
           const seconds = (this.timeLeft % 60).toString().padStart(2, "0");
-          const milliseconds = (this.timeLeft % 1).toFixed(3).slice(2, 5);
-          const timerString = `${minutes}:${seconds}${milliseconds}`;
+          const timerString = `${minutes}:${seconds}`;
           this.timerDisplay = timerString;
           this.timeLeft--;
           if (this.timeLeft < 0) {
