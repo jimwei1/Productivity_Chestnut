@@ -12,7 +12,7 @@ class task {
     }
 
     calculatePriority(){
-        // Formula basically is: |(time_needed)/(time_left)|
+        // Formula basically is: (timeNeeded)/(timeLeft) but with huge multiplier of absolute value if negative (b/c overdue bad)
         // Intuition is that tasks that will take a larger portion of the time left should be prioritized, with lower priority coming first
         const now = new Date();
         const workedNow = new Date(now.getTime() + this.time * 60 * 60 * 1000);
@@ -23,7 +23,7 @@ class task {
         }
         priority = this.time / timeLeftInHours
         if (priority < 0){
-            priority = Math.abs(this.priority) + constants.overdueOffset 
+            priority = Math.abs(priority) * constants.overdueMultiplier 
         }
         return this.priority;
     }
