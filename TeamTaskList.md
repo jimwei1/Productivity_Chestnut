@@ -1,4 +1,4 @@
-# Sprint 1
+# Sprint 1: Brainstorming and Task Assignment
 
 # Sprint 2: Component Design & Testing
 ## Core Components
