@@ -25,6 +25,7 @@ class task {
         if (priority < 0){
             priority = Math.abs(priority) * constants.overdueMultiplier 
         }
+        this.priority = priority
         return this.priority;
     }
 
