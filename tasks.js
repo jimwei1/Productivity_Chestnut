@@ -1,7 +1,7 @@
-import {typeChecking} from "." // fix later
+import {typeChecking} from "." // fix later?
 
 
-class tasks {
+class task {
     constructor(name="", description="", priority=0, time=1, deadline=new Date()) {
         // Type check
         // typeChecking.checkInputList([name, description, priority, time, deadline], ['string', 'string', 'number', 'number', 'time'])
