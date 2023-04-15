@@ -4,6 +4,7 @@
 ## Core Components
 - Timer (Thomas)
 - Site Blocking
+    - The actual blocking mechanism (Matt)
     - AI Suggestion (GPT)
     - Stat-based model
 - The To-Do List

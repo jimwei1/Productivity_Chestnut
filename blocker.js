@@ -8,7 +8,7 @@ chrome.webRequest.onBeforeRequest.addListener(
     };
   },
   {
-    urls: constants.blockedUrls,
+    urls: constants.blockedUrls, // gonna need to fix to deal with DB querying for the list of blockedUrls
     types: ['main_frame', 'sub_frame', 'stylesheet', 'script', 'image', 'object', 'xmlhttprequest', 'other']
   },
   ['blocking']
