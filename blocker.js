@@ -1,4 +1,5 @@
 import {constants} from "."  // fix this when refactoring
+const blockList = require('./blockList.json')
 
 
 chrome.webRequest.onBeforeRequest.addListener(
@@ -8,7 +9,7 @@ chrome.webRequest.onBeforeRequest.addListener(
     };
   },
   {
-    urls: constants.blockedUrls, // gonna need to fix to deal with DB querying for the list of blockedUrls
+    urls: blockList.blocked,
     types: ['main_frame', 'sub_frame', 'stylesheet', 'script', 'image', 'object', 'xmlhttprequest', 'other'] // might only need main_frame
   },
   ['blocking']

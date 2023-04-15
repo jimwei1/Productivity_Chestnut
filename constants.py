@@ -1,0 +1,1 @@
+openaiQueryLimit = 5
