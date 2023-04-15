@@ -4,7 +4,7 @@ const Task = require('./task');
 
 
 describe('Task', () => {
-    testTask = task();
+    testTask = new task();
     
     test('Initialization Correct', () => {
         // name="", description="", priority=0, time=1, deadline=new Date()
@@ -20,7 +20,8 @@ describe('Task', () => {
         testTask.updateDeadline(new Date(deadlineString));
         expect(testTask.calculatePriority()).toBeLessThan(1);
         // Next test soon deadline w high time but not more than left gives decent priority
-        timeDiff = testTask.deadline.getTime() - now.getTime();
+        const now = new Date();
+        const timeDiff = testTask.deadline.getTime() - now.getTime();
         hoursDiff = timeDiff / (1000 * 60 * 60);
         testTask.updateTime(hoursDiff-1)
         expect(testTask.calculatePriority()).toBeLessThan(1);
