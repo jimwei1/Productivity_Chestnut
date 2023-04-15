@@ -1,0 +1,2 @@
+blockedUrls = []
+ourWebpage = "google.com"
