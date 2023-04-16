@@ -1,18 +1,80 @@
-const router = require('express').Router();
-const {Task} = require('../models');
+const router = require("express").Router();
+const { Task, User } = require("../models");
+// const jwt = require('jsonwebtoken');
+require("dotenv").config();
+// const SECRET = process.env.SECRET;
+const tokenExtractor = require("../middleware/middleware");
 
+// const tokenExtractor = (req, res, next) => {
+//     const authorization = req.get('authorization')
+//     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+//       try {
+//         req.decodedToken = jwt.verify(authorization.substring(7), SECRET)
+//       } catch{
+//         return res.status(401).json({ error: 'token invalid' })
+//       }
+//     }  else {
+//       return res.status(401).json({ error: 'token missing' })
+//     }
+//     next()
+//   }
 
-
-router.post('/', async(req, res) => {
+router.post("/", tokenExtractor, async (req, res) => {
     try {
-        const task = await Task.create(req.body);
+        const user = await User.findByPk(req.decodedToken.id);
+        const task = await Task.create({
+            ...req.body,
+            userId: user.id,
+            date: new Date(),
+        });
         res.json(task);
-    } catch(err) {
-        console.log(err);
-        res.status(400).json(err);
+    } catch (error) {
+        return res.status(400).json({ error });
     }
-})
+});
 
+router.get("/:id", tokenExtractor, async (req, res) => {
+    try {
+        const user = await User.findByPk(req.decodedToken.id);
+        const task = await Task.findByPk(req.params.id);
+        if (task.userId === user.id) {
+            res.json(task);
+        } else {
+            res.status(401).json({ error: "unauthorized" });
+        }
+    } catch (error) {
+        return res.status(400).json({ error });
+    }
+});
 
+/**
+ * Route changes completion status of a task between
+ * true and false.
+ */
+router.put("/:id/completion", tokenExtractor, async (req, res) => {
+    try {
+        const user = await User.findByPk(req.decodedToken.id);
+        const task = await Task.findByPk(req.params.id);
+        if (task.userId === user.id) {
+            task.completed = !task.completed;
+            await task.save();
+            res.json(task);
+        } else {
+            res.status(401).json({ error: "unauthorized" });
+        }
+    } catch (error) {
+        return res.status(400).json({ error });
+    }
+});
 
-module.exports = router
+// router.post('/', async(req, res) => {
+//     try {
+//         const task = await Task.create(req.body);
+//         res.json(task);
+//     } catch(err) {
+//         console.log(err);
+//         res.status(400).json(err);
+//     }
+// })
+
+module.exports = router;
