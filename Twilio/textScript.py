@@ -16,8 +16,8 @@ def client_initialization():
     """
     Initializes a client for Twilio.
     """
-    twilio_sid = os.environ.get('TWILIO_SID')
-    twilio_auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
+    twilio_sid = os.environ.get(c.twilio_sid_env_name)
+    twilio_auth_token = os.environ.get(c.twilio_auth_key_env_name)
     # twilio_creds = os.environ.get('twilio_env')
     # print(twilio_creds)
     client = Client(twilio_sid, twilio_auth_token)
