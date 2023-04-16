@@ -8,19 +8,14 @@
         "default_popup": "./popup/popup.html",
         "default_title": "Chestnut"
     },
-    "permissions": [
-    "webRequest",
-    "webRequestBlocking",
-    "http://*/*",
-    "https://*/*"
-  ],
-
-  "background": {
-    "service_worker": [
-      "src/blocker.js"
-    ]
-  }
+    "content_scripts": [
+        {
+          "matches": ["*://*.facebook.com/*", "*://*.twitter.com/*", "*://*.instagram.com/*"],
+          "js": ["./src/Blocking/blocker.js"]
+        }
+      ]
 
 }
+
 
 
