@@ -6,7 +6,7 @@ const Task = require('./task');
 Task.belongsTo(User, {foreignKey: 'user_id'});
 User.hasMany(Task);
 User.sync({alter: true});
-
+Task.sync({alter: true});
 module.exports = {
     Task, User
 }

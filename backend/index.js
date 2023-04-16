@@ -1,14 +1,20 @@
 require('dotenv').config();
 const express = require('express');
 const { connectToDatabase, sequelize } = require('./util/db')
-//NEED TO IMPORT TASKSROUTER
-const tasksRouter = require('./controllers/tasks')
+
+//IMPORT ROUTERS
+const tasksRouter = require('./controllers/tasks');
+const usersRouter = require('./controllers/users');
+const loginRouter = require('./controllers/login');
+
 
 const app = express();
 sequelize.sync()
 
   app.use(express.json())
-  app.use('/api/tasks', tasksRouter)
+  app.use('/api/tasks', tasksRouter);
+  app.use('/api/users', usersRouter);
+  app.use('/api/login', loginRouter);
 
 //APP USE API/TASKS
 
