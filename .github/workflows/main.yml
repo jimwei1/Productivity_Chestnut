@@ -1,0 +1,30 @@
+name: Run textScript
+
+on:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          pip install -r requirements.txt
+          
+      - name: Run script
+        env:
+          TWILIO_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          POSTGRESQL_DB_HOST: ${{ secrets.POSTGRESQL_DB_HOST }}
+          POSTGRESQL_DB: ${{ secrets.POSTGRESQL_DB }}
+          POSTGRESQL_DB_USER: ${{ secrets.POSTGRESQL_DB_USER }}
+          POSTGRESQL_DB_PASSWORD: ${{ secrets.POSTGRESQL_DB_PASSWORD }}
+        run: |
+          source .venv/bin/activate
+          cd Twilio
+          python textScript.py

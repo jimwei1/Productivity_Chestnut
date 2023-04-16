@@ -63,6 +63,14 @@ body {
   background-position: center;
   visibility: hidden;
 }
+#login-button {
+  visibility: visible;
+}
+#signup-button {
+  visibility: visible;
+}
+
+
 #settings-button {
   font-size: 1rem;
   width: 30px;
