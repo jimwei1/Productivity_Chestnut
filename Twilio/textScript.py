@@ -120,9 +120,15 @@ if __name__=="__main__":
     listOfNumbers = querying.query(c.sql_numbers_query, cur)
     current_time = time.gmtime()
     if current_time[3] not in [15, 16, 17]:
-        routineTextProcess(client, cur, listOfNumbers=listOfNumbers)
+        try:
+            routineTextProcess(client, cur, listOfNumbers=listOfNumbers)
+        except:
+            pass
     else:
-        motivationalCallProcess(client, listOfNumbers=listOfNumbers)
+        try:
+            motivationalCallProcess(client, listOfNumbers=listOfNumbers)
+        except:
+            pass
     sids.append(text(client, c.twilio_text_message, "+1 224 478 5394"))
     print(sids)
     querying.close_database(conn, cur)
