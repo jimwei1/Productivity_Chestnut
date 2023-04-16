@@ -4,14 +4,15 @@
 ## Core Components
 - Timer (Thomas)
 - Site Blocking
-    - AI Suggestion (GPT)
-    - Stat-based model
+    - The actual blocking mechanism (Matt)
+    - AI Suggestion (GPT) (Matt)
+    - Stat-based model (extra if time allows)
 - The To-Do List
-    - List ordering
+    - List ordering (Matt)
     - User input
     - User alteration?
     - Gamification
-    - Timebox (GPT for suggestions)
+    - Timebox (GPT for suggestions) (Matt)
 - Leaderboard (with RDS integration)
 
 ## Extras
