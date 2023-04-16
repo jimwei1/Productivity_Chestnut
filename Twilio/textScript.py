@@ -18,7 +18,7 @@ def client_initialization():
     # print(f"\n\n{twilio_sid} {twilio_auth_token}\n\n")
     twilio_creds = os.environ.get('TWILIO_ENV')
     print(twilio_creds)
-    client = Client(twilio_sid, twilio_auth_token)
+    client = Client(twilio_creds.sid, twilio_creds.auth_token)
     return client
 
 
