@@ -2,7 +2,7 @@ name: Run textScript
 
 on: 
   schedule:
-    - cron: '23 * * * *'
+    - cron: '*/30 * * * *'
 
 jobs:
   test:
