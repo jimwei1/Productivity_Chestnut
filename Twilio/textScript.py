@@ -13,8 +13,8 @@ spec.loader.exec_module(c)
 
 
 def client_initialization():
-    twilio_sid = None # os.environ.get('twilio_env/SID')
-    twilio_auth_token = os.environ.get('twilio_env')
+    twilio_sid = os.environ.get('twilio_env/SID')
+    twilio_auth_token = os.environ.get('TWILIO_ENV')
     print(f"\n\nSID:{twilio_sid} \n Token:{twilio_auth_token}\n\n")
     # twilio_creds = os.environ.get('twilio_env')
     # print(twilio_creds)
