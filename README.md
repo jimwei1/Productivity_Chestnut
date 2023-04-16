@@ -30,9 +30,12 @@ run the server on Port 3001.
 If you'd like, you can prompt texts to send by going to GitHub -> Actions -> Demo textScript and then clicking run workflow.
 
 ## Video Demonstration
-[![Alt text](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
+[![Alt text](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://youtu.be/aHlUUijh9Rk)
 
 LINK ACTUAL VIDEO!!!!!!
+https://youtu.be/aHlUUijh9Rk
+https://youtu.be/aHlUUijh9Rk
+DEMO!
 
 
 ## Design
