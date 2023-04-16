@@ -18,9 +18,7 @@ window.onload = function (e) {
       <div id="container">
         <button type="submit" class="btn" @click="openTimerPopup">Start Timer</button>
         <div class = "popup" id="timer-popup">
-          <img src="images/404-tick.png">
-          <h2>Test</h2>
-          <p>Test</p>
+          <h2>Confirm Start</h2>
           <button type="submit" class="btn" @click="startTimer">Continue</button>
           <button type="submit" class="btn" @click="closeTimerPopup">Cancel</button>
         </div>
@@ -66,9 +64,14 @@ window.onload = function (e) {
         timerValue: null,
         items: ["Coffee"],
         timerDisplay: "",
-        blockListActive: false
+        blockListActive: false,
+        audio: null
       };
     },
+    mounted() {
+        // Create the audio element
+        this.audio = new Audio("/path/to/audio/file.mp3");
+      },
 
     methods: {
       updateTimer() {
@@ -80,6 +83,8 @@ window.onload = function (e) {
         if (this.timeLeft < 0) {
           clearInterval(this.timerInterval);
           this.timerDisplay = "Time's up!";
+          const audio = new Audio('./sounds/alarm.mp3'); // replace with the path to your audio file
+          audio.play();
         }
       },
 
@@ -101,23 +106,21 @@ window.onload = function (e) {
       closeTimerPopup(){
         let popup = document.getElementById("timer-popup");
         popup.classList.remove("open-popup")
-        this.duration = this.timerValue * 60;
-        this.timeLeft = this.duration;
+        this.duration = timeLeft;
         clearInterval(this.timerInterval);
+        this.timerInterval = setInterval(this.updateTimer, 1000);
       },
 
       startTimer() {
         let popup = document.getElementById("timer-popup");
         popup.classList.remove("open-popup")
 
-        this.duration = this.timeLeft;
+        this.duration = this.timerValue * 60;
+        this.timeLeft = this.duration;
         clearInterval(this.timerInterval);
-
-        if (this.blockListActive == True){
+        if (this.blockListActive == true){
           console.log("test")
         }
-
-        
 
         this.timerInterval = setInterval(this.updateTimer, 1000);
       },
