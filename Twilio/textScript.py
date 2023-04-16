@@ -19,8 +19,6 @@ def client_initialization() -> Client:
     """
     twilio_sid = os.environ.get(c.twilio_sid_env_name)
     twilio_auth_token = os.environ.get(c.twilio_auth_key_env_name)
-    # twilio_creds = os.environ.get('twilio_env')
-    # print(twilio_creds)
     client = Client(twilio_sid, twilio_auth_token)
     return client
 
@@ -96,8 +94,8 @@ def routineTextProcess(client: Client, cursor, listOfNumbers: list[str]) -> list
     """
     sid = []
     for number in listOfNumbers:
-        name = querying.query(c.sql_name_query, cursor) 
-        taskQuery = querying.query(c.sql_task_query, cursor)
+        name = querying.query(c.sql_name_query + number, cursor) 
+        taskQuery = querying.query("SELECT DISTINCT u.name FROM users u INNER JOIN tasks t ON u.id = t.user_id;", cursor)
         text_message = f"Hello {name}, it\'s time to work. \n You have the following tasks to accomplish: \n {taskQuery} \nWe know you've got this!"
         sid.append(text(client, text_message, number))
     return sid
