@@ -19,10 +19,10 @@ def open_database():
     conn:  The connection variable.
     cur:  The cursor variable.
     """
-    host=os.environ.get(c.sql_host_env_name)
-    database=os.environ.get(c.sql_db_env_name)
-    user=os.environ.get(c.sql_user_env_name)
-    password=os.environ.get(c.sql_pw_env_name)
+    host=str(os.environ.get(c.sql_host_env_name))
+    database=str(os.environ.get(c.sql_db_env_name))
+    user=str(os.environ.get(c.sql_user_env_name))
+    password=str(os.environ.get(c.sql_pw_env_name))
     print(f"\n\n\n {host} {database} {user} {password} \n\n\n")
     conn = psycopg2.connect(
         host=host,
