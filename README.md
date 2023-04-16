@@ -10,5 +10,11 @@ As of 6:25 AM requires spin-up of node.js hosting on local machine.
 
 Goal:  Set up lambda function to host instances of website upon clicking extension.
 
+## Video Demonstration
+[![Alt text](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)
+
+LINK ACTUAL VIDEO!!!!!!
+
+
 ## Longer Description
 
