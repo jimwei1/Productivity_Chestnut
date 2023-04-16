@@ -16,6 +16,9 @@ jobs:
           pip install -r requirements.txt
           
       - name: Run script
+        with: # Set the secret as an input
+          TWILIO_SID: ${{ secrets.twilio_env.SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_ENV.AUTH_TOKEN }}
         env:
           TWILIO_SID: ${{ secrets.twilio_env.SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_ENV.AUTH_TOKEN }}
