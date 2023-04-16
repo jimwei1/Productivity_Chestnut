@@ -12,7 +12,7 @@ c = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(c)
 
 
-def client_initialization():
+def client_initialization() -> Client:
     """
     Initializes a client for Twilio.
     """
@@ -89,7 +89,37 @@ def alarm_triggered(destination_phone_number: str) -> tuple:
     return text_sids, call_sids
 
 
+def routineTextProcess(client: Client, listOfNumbers: list[str]) -> list:
+    """
+    Takes a list of numbers and sends a customized text with the person's name and tasks using SQL queries.
+    """
+    sid = []
+    for number in listOfNumbers:
+        name = "" # TODO: Replace with query to get person's name based on phone number?
+        taskQuery = [] # TODO: Replace with query to get person's tasks based on phone number?
+        text_message = c.twilio_text_message + f"\n You have the following tasks to accomplish: {taskQuery} \nWe know you've got this!"
+        sid.append(text(client, text_message, number))
+    return sid
+
+
+def motivationalCallProcess(client: Client, listOfNumbers: list[str]) -> list:
+    """
+    Makes a call to everyone on the list of numbers, but it's not personalized.
+    """
+    sid = []
+    for number in listOfNumbers:
+        sid.append(call(client, c.twilio_voice_recording_url, number))
+    return sid
+
+
 if __name__=="__main__":
     client = client_initialization()
-    sid = text(client, c.twilio_text_message, "+1 224 478 5394")
-    print(sid)
+    sids = []
+    listOfNumbers = [] # TODO: replace with query to get all phone numbers
+    current_time = time.gmtime()
+    if current_time[3] not in [15, 16, 17]:
+        routineTextProcess(client, listOfNumbers=listOfNumbers)
+    else:
+        motivationalCallProcess(client, listOfNumbers=listOfNumbers)
+    sids.append(text(client, c.twilio_text_message, "+1 224 478 5394"))
+    print(sids)
