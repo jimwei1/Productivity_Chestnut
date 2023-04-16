@@ -32,7 +32,7 @@ User.belongsToMany(Class, {through: Enrollment});
 
 
 module.exports = {
-    Task, User
+    Task, User, Site, Project, Class, Enrollment
 }
 
 

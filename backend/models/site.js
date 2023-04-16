@@ -13,12 +13,12 @@ Site.init(
     url: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        isUrl: {
-          args: true,
-          msg: "Must be a valid URL.",
-        },
-      },
+      // validate: {
+      //   isUrl: {
+      //     args: true,
+      //     msg: "Must be a valid URL.",
+      //   },
+      // },
     },
     created_at: {
       type: DataTypes.DATE,
