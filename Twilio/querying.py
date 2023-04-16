@@ -11,7 +11,7 @@ c = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(c)
 
 
-def prepare_to_query():
+def open_database():
     """
     Sets up the connection to a database, specified by the environment secrets within GitHub.
 
