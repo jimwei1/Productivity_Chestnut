@@ -4,7 +4,7 @@ import {task} from "."
 class taskList {
     constructor(calculatePriorities=false){
         // First, query the database to get a list of tasks
-        databaseTaskList = []; // from query
+        databaseTaskList = []; // TODO
         // Next, initialize the list to get the order of tasks.
         this.listOfTasks = [];
         for (element in databaseTaskList){

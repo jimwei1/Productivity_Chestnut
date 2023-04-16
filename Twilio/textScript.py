@@ -1,7 +1,10 @@
 from twilio.rest import Client
-from .. import constants as c
 import time
 import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\constants')))
+import constants as c
 
 
 def client_initialization():
