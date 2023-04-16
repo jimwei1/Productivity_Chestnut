@@ -100,7 +100,8 @@ window.onload = function (e) {
           
                 <div id="About" class="tabcontent" ref="about">
                   <h3>About</h3>
-                  <p>Productivity Chestnut is </p>
+                  <p>Productivity Chestnut is a productivity Chrome extension designed to improve your focus on important work.
+                  You can both </p>
                 </div>
             </div>
             </div>
