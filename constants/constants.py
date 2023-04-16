@@ -1,7 +1,7 @@
 openaiQueryLimit = 5
 
 
-twilio_voice_recording_url = 'callScript.xml'
+twilio_voice_recording_url = './callScript.xml'
 twilio_source_phone_number = '+1 224 507 6877'
 twilio_sid_env_name = 'TWILIO_SID'
 twilio_auth_key_env_name = 'TWILIO_AUTH_TOKEN'
