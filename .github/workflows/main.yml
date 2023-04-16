@@ -1,7 +1,6 @@
 name: Test textScript
 
-on:
-  workflow_dispatch:
+on: [workflow_dispatch, push]
 
 jobs:
   test:
@@ -17,6 +16,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run script
+        with:
+          TWILIO_SID: ${{ secrets.SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
         env:
           TWILIO_SID: ${{ secrets.SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
