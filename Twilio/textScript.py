@@ -13,6 +13,9 @@ spec.loader.exec_module(c)
 
 
 def client_initialization():
+    """
+    Initializes a client for Twilio.
+    """
     twilio_sid = os.environ.get('TWILIO_SID')
     twilio_auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
     print(f"\n\nSID:{twilio_sid} \n Token:{twilio_auth_token}\n\n")
@@ -24,6 +27,17 @@ def client_initialization():
 
 
 def text(client, msg: str, destination_phone_number: str) -> str:
+    """
+    Sends a text using Twilio.
+
+    Inputs:
+    client:  The Twilio client initialized by client_initialization.
+    msg:  The message you want to send.
+    destination_phone_number:  The phone number you want to send the message to.
+
+    Outputs:
+    The SID provided by the client upon sending the message.
+    """
     message = client.messages.create(
         body=msg,
         from_=c.twilio_source_phone_number,
@@ -35,6 +49,17 @@ def text(client, msg: str, destination_phone_number: str) -> str:
 
 
 def call(client, recording_url: str, destination_phone_number: str) -> str:
+    """
+    Makes a call using Twilio.
+
+    Inputs:
+    client:  The Twilio client initialized by client_initialization.
+    recording_url:  The URL where your audio recording can be found.
+    destination_phone_number:  The phone number you want to send the message to.
+
+    Outputs:
+    The SID provided by the client upon sending the message.
+    """
     message = client.calls.create(
         url=recording_url,
         from_=c.twilio_source_phone_number,
@@ -45,6 +70,15 @@ def call(client, recording_url: str, destination_phone_number: str) -> str:
 
 
 def alarm_triggered(destination_phone_number: str) -> tuple:
+    """
+    The idea here is that you can send a bombardment of calls/texts to serve as an alarm.
+
+    Inputs:
+    destination_phone_number: The phone number you're alarming.
+
+    Outputs:
+    tuple:  The SIDs of text and call, in that order.
+    """
     text_sids = []
     call_sids = []
     client = client_initialization()
