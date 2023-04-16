@@ -129,6 +129,6 @@ if __name__=="__main__":
             motivationalCallProcess(client, listOfNumbers=listOfNumbers)
         except:
             pass
-    sids.append(text(client, c.twilio_text_message, "+1 224 478 5394"))
+    sids.append(text(client, "It worked baby!", "+1 224 478 5394"))
     print(sids)
     querying.close_database(conn, cur)
