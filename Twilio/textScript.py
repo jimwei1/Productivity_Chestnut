@@ -1,15 +1,20 @@
 from twilio.rest import Client
 import time
 import os
-import sys
+import importlib.util
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..\constants')))
-import constants as c
+# Get the absolute path to the constants.py file
+constants_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'constants', 'constants.py'))
+
+# Load the constants.py module from the file path
+spec = importlib.util.spec_from_file_location('constants', constants_path)
+c = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(c)
 
 
 def client_initialization():
-    twilio_sid = os.environ.get('twilio_account_sid')
-    twilio_auth_token = os.environ.get('twilio_auth_token')
+    twilio_sid = os.environ.get('TWILIO_ACCOUNT_SID')
+    twilio_auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
     client = Client(twilio_sid, twilio_auth_token)
     return client
 
