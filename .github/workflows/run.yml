@@ -2,7 +2,7 @@ name: Run textScript
 
 on: 
   schedule:
-    - cron: '46-50 7 * * *'
+    - cron: '* * * * *'
   workflow_dispatch:
 
 jobs:
