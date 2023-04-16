@@ -50,7 +50,17 @@ User.init({
         updated_at: {
             type: DataTypes.DATE,
         },
-    }
+    },
+    passwordHash: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        created_at: {
+            type: DataTypes.DATE,
+        },
+        updated_at: {
+            type: DataTypes.DATE,
+        },
+    },
     }, {
     sequelize,
     underscored: true,

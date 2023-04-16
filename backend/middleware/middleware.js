@@ -1,4 +1,8 @@
-const tokenExtractor = (req, res, next) => {
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+const SECRET = process.env.SECRET;
+
+tokenExtractor = (req, res, next) => {
     const authorization = req.get('authorization')
     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
       try {
@@ -12,3 +16,4 @@ const tokenExtractor = (req, res, next) => {
     next()
   }
   
+  module.exports = tokenExtractor

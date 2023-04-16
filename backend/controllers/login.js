@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const router = require('express').Router();
+const bcrypt = require('bcrypt');
 require('dotenv').config();
 const SECRET = process.env.SECRET;
 const User = require('../models/user');
@@ -12,7 +13,10 @@ router.post('/', async (req, res) => {
         }
     });
     
-    const passwordCorrect = body.password === 'secret';
+    const passwordCorrect = body.password === null 
+        ? false 
+        : await bcrypt.compare(body.password, user.passwordHash)
+
     
     if (!(user && passwordCorrect)) {
         return res.status(401).json({
