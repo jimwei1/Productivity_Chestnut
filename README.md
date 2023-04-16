@@ -7,7 +7,23 @@ Ideally, this extension is meant to be used in an educational setting, and would
 
 ## How to Use
 ### Front-End
+1. Navigate to your preferred directory, open the terminal, and run 'git clone <http>'
+as appropriate for the repo.
 
+2. Within the backend directory, open a terminal and run 'npm install' and then 'npm update'.
+
+3. Within the root directory, open a terminal and run the commands 'npm install' and 'npm update'.
+
+4. Open the Extension Manager in your Chrome browser.
+
+5. Click Load Unpacked in the top left corner. Navigate to the root directory Productivity_Chestnut and click load unpacked.
+
+6. Open a terminal in the backend directory and run the command 'npm run dev' to
+run the server on Port 3001.
+
+7. Open a terminal in the root directory Productivity_Chestnut and run the command 'node server.js' to start the client.
+
+8. You are all set to use the extension!
 
 ### Texting
 If you'd like, you can prompt texts to send by going to GitHub -> Actions -> Demo textScript and then clicking run workflow.
