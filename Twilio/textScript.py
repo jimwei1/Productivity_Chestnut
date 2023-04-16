@@ -116,21 +116,21 @@ def motivationalCallProcess(client: Client, listOfNumbers: list[str]) -> list:
 
 if __name__=="__main__":
     client = client_initialization()
-    motivationalCallProcess(client, ["+1 224 478 5394"])
-    # conn, cur = querying.open_database()
-    # sids = []
-    # listOfNumbers = querying.query(c.sql_numbers_query, cur)
-    # current_time = time.gmtime()
-    # if current_time[3] not in [15, 16, 17]:
-    #     try:
-    #         routineTextProcess(client, cur, listOfNumbers=listOfNumbers)
-    #     except:
-    #         pass
-    # else:
-    #     try:
-    #         motivationalCallProcess(client, listOfNumbers=listOfNumbers)
-    #     except:
-    #         pass
-    # sids.append(text(client, "It worked baby!", "+1 224 478 5394"))
-    # print(sids)
-    # querying.close_database(conn, cur)
+    # motivationalCallProcess(client, ["+1 224 478 5394"])
+    conn, cur = querying.open_database()
+    sids = []
+    listOfNumbers = querying.query(c.sql_numbers_query, cur)
+    current_time = time.gmtime()
+    if current_time[3] not in [15, 16, 17]:
+        try:
+            routineTextProcess(client, cur, listOfNumbers=listOfNumbers)
+        except:
+            pass
+    else:
+        try:
+            motivationalCallProcess(client, listOfNumbers=listOfNumbers)
+        except:
+            pass
+    sids.append(text(client, "It worked baby!", "+1 224 478 5394"))
+    print(sids)
+    querying.close_database(conn, cur)
