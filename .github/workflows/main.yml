@@ -17,10 +17,10 @@ jobs:
           
       - name: Run script
         env:
-          TWILIO_ENV: ${{ secrets.TWILIO_ENV }}
+          TWILIO_ENV: "it's in the env" #${{ secrets.TWILIO_ENV }}
         run: |
           source .venv/bin/activate
           cd Twilio
-          export TWILIO_SID=${{ secrets.SID }}
-          export TWILIO_AUTH_TOKEN=${{ secrets.AUTH_TOKEN }}
+          export TWILIO_SID='${{ secrets.SID }}'
+          export TWILIO_AUTH_TOKEN='${{ secrets.AUTH_TOKEN }}'
           python textScript.py
