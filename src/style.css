@@ -25,6 +25,9 @@ body {
   justify-content: center;
   align-items: center;
   text-shadow: 2px 2px #000;
+  background-image: url('./images/image.png');
+  background-size: cover;
+  background-position: center;
 }
 
 #timer-input {

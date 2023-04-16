@@ -6,9 +6,6 @@ window.onload = function (e) {
   new Vue({
     template: `<div id="app">
     <div>
-          <div id="score">
-            <button @click="openScore">Score</button>
-          </div>
           <div id="urls-container" class="urlList">
           <h2>BlockedUrls</h2>
             <input id="blockedUrl" type="text" v-model="newUrl" placeholder="Enter URL">
@@ -47,10 +44,11 @@ window.onload = function (e) {
           <div id="container">
             <div id="menu">
               <button @click="showLogin" id="login-button" class="btn">Login</button>
-              <button @click="showSignup" id="signup-button" class="btn">Signup</button>
+              <button @click="showSignup" id="signin-button" class="btn">Signup</button>
               <button @click="showProfile" id="profile-button"></button>
-              <button id="settings-button"></button>
+              <button @click="showSettings"id="settings-button"></button>
             </div>
+            
 
             <div id="login-popup" class="popup">
               <h2>Login</h2>
@@ -71,6 +69,29 @@ window.onload = function (e) {
               <button class="close-button" @click="hideSignup">Close</button>
             </div>
           </div>
+          <div id="container">
+              <div id="settings-popup" class="popupSettings">
+                <button class="tablink" v-on:click="openPage('Settings', $refs.settings, 'purple')">Settings</button>
+                <button class="tablink" v-on:click="openPage('About', $refs.about, 'orange')">About</button>
+                <button class="tablink" @click="hideSettings()">CLOSE</button>
+          
+                <div id="Settings" class="tabcontent" ref="settings">
+                  <h3 style="font-size: 25px;">Settings:</h3>
+                  <label for="alarm-sound" style="font-size: 16px;">Alarm Sound:</label>
+                  <select id="alarm-sound" name="alarm-sound" style="font-size: 16px; padding: 6px;">
+                    <option value="./sounds/alarm1.mp3" selected>Sound 1</option>
+                    <option value="./sounds/alarm2.mp3">Sound 2</option>
+                    <option value="./sounds/alarm1.mp3">Sound 3</option>
+                  </select>
+                </div>
+          
+                <div id="About" class="tabcontent" ref="about">
+                  <h3>About</h3>
+                  <p>Productivity Chestnut is </p>
+                </div>
+            </div>
+            </div>
+          </div>
 
           
         </div>
@@ -82,12 +103,11 @@ window.onload = function (e) {
         duration: 5 * 60, // 5 minutes in seconds
         timeLeft: 0,
         timerInterval: null,
-        timerValue: null,
-        newTask: "",
+        timerValue: "",
         tasks: [],
-        timerDisplay: "",
+        timerDisplay: "05:00",
         blockListActive: false,
-        audio: null,
+        audio: new Audio("./sounds/alarm1.mp3"),
         newUrl: "",
         urls: [],
         SR_Timer: "Stop Timer",
@@ -99,16 +119,42 @@ window.onload = function (e) {
         v_phone: "",
         v_duedate:"",
         v_task: "",
-        token: null
+        token: null,
+        events: ["hi"],
+      
 
       };
     },
     mounted() {
         // Create the audio element
-        this.audio = new Audio("./sounds/alarm.mp3");
+        this.audio = new Audio("./sounds/alarm1.mp3");
+        this.openPage('Settings', this.$refs.news, 'green');
       },
 
     methods: {
+      openPage(pageName, elmnt, color) {
+        const tabcontents = this.$refs;
+        Object.keys(tabcontents).forEach((key) => {
+          if (key !== pageName) {
+            tabcontents[key].style.display = 'none';
+          }
+        });
+
+        // Remove the background color of all tab buttons
+        const tablinks = document.getElementsByClassName('tablink');
+        for (let i = 0; i < tablinks.length; i++) {
+          tablinks[i].style.backgroundColor = '';
+        }
+
+        // Show the specific tab content
+        if (elmnt) {
+            elmnt.style.display = 'block';
+            // Add the specific color to the button used to open the tab content
+            elmnt.previousElementSibling.style.backgroundColor = color;
+          }
+
+
+      },
       updateTimer() {
         const minutes = Math.floor(this.timeLeft / 60).toString().padStart(2, "0");
         const seconds = (this.timeLeft % 60).toString().padStart(2, "0");
@@ -118,8 +164,10 @@ window.onload = function (e) {
         if (this.timeLeft < 0) {
           clearInterval(this.timerInterval);
           this.timerDisplay = "Time's up!";
-          const audio = new Audio('./sounds/alarm.mp3'); // replace with the path to your audio file
-          audio.play();
+          const theAudio = document.getElementById("alarm-sound").value;
+          this.audio = new Audio(theAudio);
+          console.log(this.audio);
+          this.audio.play();
         }
       },
 
@@ -160,6 +208,11 @@ window.onload = function (e) {
           this.isStop = true;
         }
       },
+      hideSettings(){
+        let popupSe = document.getElementById("settings-popup");
+        popupSe.classList.remove("open-popup");
+
+      },
 
       startTimer() {
         let popup = document.getElementById("timer-popup");
@@ -175,12 +228,10 @@ window.onload = function (e) {
 
         this.timerInterval = setInterval(this.updateTimer, 1000);
       },
-      openScore() {
-        alert("Blocking websites!");
-      },
 
       showProfile() {
-        alert("Showing profile!");
+        const an_alert = "Hi, "+this.v_username;
+        alert(an_alert);
       },
 
       showLogin() {
@@ -200,6 +251,11 @@ window.onload = function (e) {
       hideLogin() {
         let popup = document.getElementById("login-popup");
         popup.classList.remove("open-popup");
+      },
+      showSettings(){
+        /* show settings popup */
+        let popupSe = document.getElementById("settings-popup");
+        popupSe.classList.add("open-popup");
       },
     
       showSignup() {
@@ -227,10 +283,43 @@ window.onload = function (e) {
         console.log(this.urls);
         
       },
-      addTask() {
-        if (this.newTask != "") {
-          this.tasks.push(this.newTask); //will change to get task from database
+      performQuery(connection, queryCode){
+        connection.query(queryCode, (err, res) => {
+          if (err) throw err;
+          console.log(res.rows);
+          pool.end();
+        });
 
+      },
+      addUrl() {
+        const url = 'http://localhost:3001/api/blocking';
+        
+        const data = { url: this.newUrl};
+        if (this.token != null){
+          fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token}
+          })
+          .then(response => {
+            if (response.ok) {
+              console.log('Url created successfully');
+            } else {
+              console.error('Error creating Url:', response.statusText);
+            }
+          })
+          .catch(error => console.error('Error creating Url:', error));
+
+        }
+        else{
+          console.error("need to log in");
+        }
+        
+      },
+      addTask() {
+        if (this.v_task != "") {
+          this.tasks.push(this.v_task); //will change to get task from database
+          console.log(this.tasks);
         }
         if(this.v_duedate <= "2023-04-16"){
           alert("need a future data");
@@ -278,9 +367,17 @@ window.onload = function (e) {
           .then(response => {
             if (response.ok) {
               response.json().then(data => {
-                console.log(data);
                 this.token = data.token;
               });
+              this.hideLogin();
+              const logbutton = document.getElementById("login-button");
+              logbutton.style.visibility = "hidden";
+              const signbutton = document.getElementById("signin-button");
+              signbutton.style.visibility = "hidden";
+              const profileButton = document.getElementById("profile-button");
+              profileButton.style.visibility = "visible";
+              
+
             } else {
               console.error('Error logging in:', response.statusText);
             }
@@ -316,6 +413,9 @@ window.onload = function (e) {
         const minutes = Math.floor(this.timeLeft / 60).toString().padStart(2, "0");
         const seconds = (this.timeLeft % 60).toString().padStart(2, "0");
         return `${minutes}:${seconds}`;
+      },
+      eventsToDisplay(){
+        return this.events.slice().reverse();
       }
     },
 
