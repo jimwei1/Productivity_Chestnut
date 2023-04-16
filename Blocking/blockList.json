@@ -1,3 +1,4 @@
 {
-    "blocked": ["instagram.com"]
+    "blocked": ["instagram.com",
+                "facebook.com"]
 }
