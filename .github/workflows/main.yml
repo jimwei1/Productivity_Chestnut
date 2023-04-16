@@ -21,5 +21,4 @@ jobs:
           TWILIO_ENV: ${{ secrets.TWILIO_ENV }}
         run: |
           source .venv/bin/activate
-          twilio_creds = os.environ.get('TWILIO_ENV')
-          python textScript.py $twilio_creds
+          python textScript.py
