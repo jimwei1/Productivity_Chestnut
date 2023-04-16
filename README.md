@@ -33,6 +33,9 @@ If you'd like, you can prompt texts to send by going to GitHub -> Actions -> Dem
 [![Video](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://youtu.be/aHlUUijh9Rk)
 
 LINK ACTUAL VIDEO!!!!!!
+https://youtu.be/aHlUUijh9Rk
+https://youtu.be/aHlUUijh9Rk
+DEMO!
 
 
 ## Design
