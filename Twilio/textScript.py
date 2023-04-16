@@ -93,7 +93,8 @@ def routineTextProcess(client: Client, cursor, listOfNumbers: list[str]) -> list
     Takes a list of numbers and sends a customized text with the person's name and tasks using SQL queries.
     """
     sid = []
-    for number in listOfNumbers:
+    for tup in listOfNumbers:
+        number = tup[0]
         name = querying.query(c.sql_name_query + "'" + number + "'", cursor)
         user_id = querying.query("SELECT id FROM users WHERE phone = '" + number + "'", cursor)
         taskQuery = querying.query("SELECT name FROM tasks WHERE tasks.user_id =" + user_id, cursor)
