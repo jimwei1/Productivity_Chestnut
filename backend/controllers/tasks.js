@@ -45,16 +45,21 @@ router.get("/:id", tokenExtractor, async (req, res) => {
 });
 
 
-router.get('/forUser', tokenExtractor,  async(req, res) => {
+router.get('/', tokenExtractor,  async(req, res) => {
     try {
         const user = await User.findByPk(req.decodedToken.id);
+        console.log(user);
+
         const userId = user.id;
+        console.log(userId);
+
 
         const tasks = await Task.findAll({
             where: {
-                userId: userId
+                user_id: userId
             }
         });
+
         res.json(tasks);
     } catch(err) {
         console.log(err);
