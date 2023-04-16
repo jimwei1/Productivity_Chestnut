@@ -3,7 +3,7 @@ name: Run textScript
 on: 
   workflow_dispatch:
   schedule:
-    cron: '* * * * *'
+    - cron: '* * * * *'
 
 jobs:
   test:
