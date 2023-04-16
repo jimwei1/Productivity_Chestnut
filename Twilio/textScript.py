@@ -116,7 +116,6 @@ def motivationalCallProcess(client: Client, listOfNumbers: list[str]) -> list:
 
 if __name__=="__main__":
     client = client_initialization()
-    # motivationalCallProcess(client, ["+1 224 478 5394"])
     conn, cur = querying.open_database()
     sids = []
     listOfNumbers = querying.query(c.sql_numbers_query, cur)

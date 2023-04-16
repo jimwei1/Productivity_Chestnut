@@ -16,5 +16,19 @@ Goal:  Set up lambda function to host instances of website upon clicking extensi
 LINK ACTUAL VIDEO!!!!!!
 
 
-## AWS Server Design:
+## Design
+Our design has a few distict modules, elaborated on below.
+### Backend
+
+
+### Blocking
+
+
+### Constants
+
+
+### Front End
+
+
+### Twilio
 
