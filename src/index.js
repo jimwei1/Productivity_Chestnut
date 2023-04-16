@@ -28,7 +28,7 @@ window.onload = function (e) {
               <button @click="showLogin" id="login-button" class="btn">Login</button>
               <button @click="showSignup" id="signup-button" class="btn">Signup</button>
               <button @click="showProfile" id="profile-button"></button>
-              <button id="settings-button"></button>
+              <button @click="showSettings" id="settings-button"></button>
             </div>
 
             <div id="login-popup" class="popup">
@@ -40,10 +40,16 @@ window.onload = function (e) {
             </div>
 
             <div id="signup-popup" class="popup">
-              <h2>Signup</h2>
-              <input type="text" placeholder="Username">
-              <input type="password" placeholder="Password">
-              <input type="password" placeholder="Confirm Password">
+              <h2>Sign Up!</h2>
+              <label for="username" style="font-size: 12px;">Username:</label>
+              <input type="text" id="username" placeholder="Enter your username">
+              <br>
+              <label for="password" style="font-size: 12px;">Password:</label>
+              <input type="password" id="password" placeholder="Enter your password">
+              <br>
+              <label for="confirm-password" style="font-size: 12px;">Confirm Password:</label>
+              <input type="password" id="confirm-password" placeholder="Confirm your password">
+              <br><br> <!-- Add an extra line break to reduce the space -->
               <button>Signup</button>
               <button class="close-button" @click="hideSignup">Close</button>
             </div>
@@ -65,7 +71,29 @@ window.onload = function (e) {
               <li v-for="task in tasks"><s>{{ task }}</s></li>
             </ul>
           </div>
-        </div>
+
+          <div id="container">
+            <div id="settings-popup" class="popupSettings">
+              <button class="tablink" v-on:click="openPage('Settings', $refs.settings, 'purple')">Settings</button>
+              <button class="tablink" v-on:click="openPage('About', $refs.about, 'orange')">About</button>
+              <button class="tablink" @click="hideSettings()">CLOSE</button>
+        
+              <div id="Settings" class="tabcontent" ref="settings">
+                <h3 style="font-size: 25px;">Settings:</h3>
+                <label for="alarm-sound" style="font-size: 16px;">Alarm Sound:</label>
+                <select id="alarm-sound" name="alarm-sound" style="font-size: 16px; padding: 6px;">
+                  <option value="sound1.mp3">Sound 1</option>
+                  <option value="sound2.mp3">Sound 2</option>
+                  <option value="sound3.mp3">Sound 3</option>
+                </select>
+              </div>
+        
+              <div id="About" class="tabcontent" ref="about">
+                <h3>About</h3>
+                <p>Productivity Chestnut is </p>
+              </div>
+          </div>
+          </div>
       </div>
     `,
 
@@ -87,9 +115,32 @@ window.onload = function (e) {
     mounted() {
         // Create the audio element
         this.audio = new Audio("./sounds/alarm.mp3");
+        this.openPage('News', this.$refs.news, 'green');
       },
 
     methods: {
+      openPage(pageName, elmnt, color) {
+        const tabcontents = this.$refs;
+        Object.keys(tabcontents).forEach((key) => {
+          if (key !== pageName) {
+            tabcontents[key].style.display = 'none';
+          }
+        });
+
+        // Remove the background color of all tab buttons
+        const tablinks = document.getElementsByClassName('tablink');
+        for (let i = 0; i < tablinks.length; i++) {
+          tablinks[i].style.backgroundColor = '';
+        }
+
+        // Show the specific tab content
+        elmnt.style.display = 'block';
+
+        // Add the specific color to the button used to open the tab content
+        elmnt.previousElementSibling.style.backgroundColor = color;
+      },
+  
+
       updateTimer() {
         const minutes = Math.floor(this.timeLeft / 60).toString().padStart(2, "0");
         const seconds = (this.timeLeft % 60).toString().padStart(2, "0");
@@ -105,13 +156,7 @@ window.onload = function (e) {
       },
 
       openTimerPopup(){
-        /* hide signup popup */
-        let popupS = document.getElementById("signup-popup");
-        popupS.classList.remove("open-popup");
-
-        /* hide login popup */
-        let popupL = document.getElementById("login-popup");
-        popupL.classList.remove("open-popup");
+        this.hideall();
 
         /* show timer popup */
         let popup = document.getElementById("timer-popup");
@@ -140,6 +185,7 @@ window.onload = function (e) {
 
         this.timerInterval = setInterval(this.updateTimer, 1000);
       },
+
       openScore() {
         alert("Blocking websites!");
       },
@@ -149,13 +195,7 @@ window.onload = function (e) {
       },
 
       showLogin() {
-        /* hide signup popup */
-        let popupS = document.getElementById("signup-popup");
-        popupS.classList.remove("open-popup");
-
-        /* hide timer popup */
-        let popupT = document.getElementById("timer-popup");
-        popupT.classList.remove("open-popup")
+        this.hideall();
 
         /* show login popup */
         let popupL = document.getElementById("login-popup");
@@ -168,13 +208,7 @@ window.onload = function (e) {
       },
     
       showSignup() {
-        /* hide login popup */
-        let popupL = document.getElementById("login-popup");
-        popupL.classList.remove("open-popup");
-
-        /* hide timer popup */
-        let popupT = document.getElementById("timer-popup");
-        popupT.classList.remove("open-popup")
+        this.hideall();
 
         /* show signup popup */
         let popupS = document.getElementById("signup-popup");
@@ -185,6 +219,21 @@ window.onload = function (e) {
         let popup = document.getElementById("signup-popup");
         popup.classList.remove("open-popup");
       },
+
+      showSettings(){
+        this.hideall();
+
+        /* show settings popup */
+        let popupSe = document.getElementById("settings-popup");
+        popupSe.classList.add("open-popup");
+      },
+
+      hideSettings(){
+        let popupSe = document.getElementById("settings-popup");
+        popupSe.classList.remove("open-popup");
+
+      },
+
       addUrl() {
         if (this.newUrl != "") {
           this.urls.push(this.newUrl);
@@ -196,8 +245,28 @@ window.onload = function (e) {
         if (this.newTask != "") {
           this.tasks.push(this.newTask);
         }
-        
+      },
+
+      hideall() {
+        /* hide login popup */
+        let popupL = document.getElementById("login-popup");
+        popupL.classList.remove("open-popup");
+
+        /* hide timer popup */
+        let popupT = document.getElementById("timer-popup");
+        popupT.classList.remove("open-popup")
+
+        /* hide signup popup */
+        let popupS = document.getElementById("signup-popup");
+        popupS.classList.remove("open-popup");
+
+        /* hide settings popup */
+        let popupSe = document.getElementById("settings-popup");
+        popupSe.classList.remove("open-popup");
+
       }
+        
+      
     },
     computed: {
       timerDisplay() {
