@@ -97,8 +97,7 @@ def routineTextProcess(client: Client, cursor, listOfNumbers: list[str]) -> list
         number = tup[0]
         name = querying.query(c.sql_name_query + "'" + number + "'", cursor)
         user_id = querying.query("SELECT id FROM users WHERE phone = '" + number + "'", cursor)
-        print(f"\n\n{user_id}\n\n {type(user_id)}")
-        taskQuery = querying.query("SELECT name FROM tasks WHERE tasks.user_id =" + user_id, cursor)
+        taskQuery = querying.query("SELECT name FROM tasks WHERE tasks.user_id =" + user_id[0][0], cursor)
         text_message = f"Hello {name}, it\'s time to work. \n You have the following tasks to accomplish: \n {taskQuery} \nWe know you've got this!"
         sid.append(text(client, text_message, number))
     return sid
