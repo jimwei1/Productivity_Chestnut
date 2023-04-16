@@ -5,20 +5,17 @@ require("dotenv").config();
 // const SECRET = process.env.SECRET;
 const tokenExtractor = require("../middleware/middleware");
 
-// const tokenExtractor = (req, res, next) => {
-//     const authorization = req.get('authorization')
-//     if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
-//       try {
-//         req.decodedToken = jwt.verify(authorization.substring(7), SECRET)
-//       } catch{
-//         return res.status(401).json({ error: 'token invalid' })
-//       }
-//     }  else {
-//       return res.status(401).json({ error: 'token missing' })
-//     }
-//     next()
-//   }
-
+/** 
+ * Route for creating a new task.
+ * 
+ * @param {string} title - Title of the task.
+ * @param {string} description - Description of the task.
+ * @param {string} date - Date of the task.
+ * @param {string} completed - Completion status of the task.
+ * @param {string} userId - User id of the task.
+ * 
+ * @returns {object} - Returns the created task.
+ */
 router.post("/", tokenExtractor, async (req, res) => {
     try {
         const user = await User.findByPk(req.decodedToken.id);
@@ -46,6 +43,24 @@ router.get("/:id", tokenExtractor, async (req, res) => {
         return res.status(400).json({ error });
     }
 });
+
+
+router.get('/forUser', tokenExtractor,  async(req, res) => {
+    try {
+        const user = await User.findByPk(req.decodedToken.id);
+        const userId = user.id;
+
+        const tasks = await Task.findAll({
+            where: {
+                userId: userId
+            }
+        });
+        res.json(tasks);
+    } catch(err) {
+        console.log(err);
+        res.status(400).json(err);
+    }
+  })
 
 /**
  * Route changes completion status of a task between

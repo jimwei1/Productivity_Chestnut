@@ -6,7 +6,7 @@ const { connectToDatabase, sequelize } = require('./util/db')
 const tasksRouter = require('./controllers/tasks');
 const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
-
+const blockingRouter = require('./controllers/blocking');
 
 const app = express();
 sequelize.sync()
@@ -15,6 +15,7 @@ sequelize.sync()
   app.use('/api/tasks', tasksRouter);
   app.use('/api/users', usersRouter);
   app.use('/api/login', loginRouter);
+  app.use('/api/blocking', blockingRouter);
 
 //APP USE API/TASKS
 
