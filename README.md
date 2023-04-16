@@ -24,7 +24,7 @@ Our design has a few distict modules, elaborated on below.
 
 ## RDS Schema:
 
-![src/images/RDS Schema.png](RDS Schema.png)
+![RDS Schema](src/images/RDS Schema.png)
 
 ### Backend
 
