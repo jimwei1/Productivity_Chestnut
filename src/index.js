@@ -99,9 +99,13 @@ window.onload = function (e) {
                 </div>
           
                 <div id="About" class="tabcontent" ref="about">
-                  <h3>About</h3>
-                  <p>Productivity Chestnut is a productivity Chrome extension designed to improve your focus on important work.
-                  You can both </p>
+                  <h3 style="font-size: 25px;">About</h3>
+                  <p style="font-size: 16px;">Productivity Chestnut is a Chrome extension designed to improve your productivity by blocking your access to a list of sites while
+                  your study timer is active. The extension is named after our cat Chestnut. She's a lazy natured, fat kitty who never does any work.
+                  We hope she may find our extension useful and become less lazy. We hope our users also find our extension useful and become more productive (and less lazy).
+                  
+                  Here's a picture of Chestnut:</p>
+                  <img src="./images/cat1.jpg" style="width: 40%; margin-top: 10px;"">
                 </div>
             </div>
             </div>

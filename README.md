@@ -6,6 +6,7 @@ Productivity Chestnut is a Chrome extension meant to boost productivity by combi
 Ideally, this extension is meant to be used in an educational setting, and would be connected to things like Canvas or Google Classroom to enable teachers or professors to push to-do lists to their students, who could also add personal tasks.
 
 ## How to Use
+
 ### Front-End
 
 
@@ -20,6 +21,11 @@ LINK ACTUAL VIDEO!!!!!!
 
 ## Design
 Our design has a few distict modules, elaborated on below.
+
+## RDS Schema:
+
+![src/images/RDS Schema.png](RDS Schema.png)
+
 ### Backend
 
 
