@@ -16,16 +16,16 @@ Task.belongsTo(Project);
 // Task.sync();
 
 //MANY TO MANY RELATIONSHIPS
-Site.belongsToMany(User, {through: 'user_site'});
-User.belongsToMany(Site, {through: 'user_site'});
+Site.belongsTo(User);
+User.hasMany(Site);
 
 Class.belongsToMany(User, {through: Enrollment});
 User.belongsToMany(Class, {through: Enrollment});
 
 
-// Site.sync();
+Site.sync({alter: true});
 // Task.sync();
-// User.sync();
+User.sync({alter: true});
 // Project.sync();
 // Class.sync({alter: true});
 

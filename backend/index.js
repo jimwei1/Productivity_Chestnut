@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const { connectToDatabase, sequelize } = require('./util/db')
+const cors = require('cors');
 
 //IMPORT ROUTERS
 const tasksRouter = require('./controllers/tasks');
@@ -8,7 +9,9 @@ const usersRouter = require('./controllers/users');
 const loginRouter = require('./controllers/login');
 const blockingRouter = require('./controllers/blocking');
 
+
 const app = express();
+app.use(cors());
 sequelize.sync()
 
   app.use(express.json())

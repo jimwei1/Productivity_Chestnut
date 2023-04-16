@@ -12,7 +12,7 @@ router.post("/", tokenExtractor, async (req, res) => {
         console.log(req.body.url)
         const site = await Site.create({
             url: req.body.url,
-            // userId: user.id,
+            userId: user.id,
         });
 
         res.json(site);
@@ -20,5 +20,27 @@ router.post("/", tokenExtractor, async (req, res) => {
         return res.status(400).json({ error });
     }
 });
+
+router.get("/", tokenExtractor, async (req, res) => {
+    try {
+        const user = await User.findByPk(req.decodedToken.id);
+        console.log(user);
+
+        const userId = user.id;
+        console.log(userId);
+
+        const sites = await Site.findAll({
+            where: {
+                userId: userId
+            }
+        });
+
+        res.json(sites);
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({ error });
+    }
+});
+
 
 module.exports = router;

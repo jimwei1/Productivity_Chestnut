@@ -15,10 +15,24 @@ function updateTimer() {
 }
 
 function startTimer() {
-  duration = document.getElementById("timer-input").value * 60;
-  timeLeft = duration;
-  clearInterval(timerInterval);
+  const confirmed = confirm("Are you sure you want to start the timer?");
+  if (confirmed) {
+    duration = document.getElementById("timer-input").value * 60;
+    console.log(duration);
+    timeLeft = duration;
+    clearInterval(timerInterval);
+  }
+  else{
+    duration = timeLeft;
+    clearInterval(timerInterval);
+  }
+  
+  const block = confirm("Do you want to block websites?");
+  if (!block) {
+    return;
+  }
   timerInterval = setInterval(updateTimer, 1000);
+  
 }
 
 document.getElementById("start-button").addEventListener("click", startTimer);

@@ -25,6 +25,9 @@ body {
   justify-content: center;
   align-items: center;
   text-shadow: 2px 2px #000;
+  background-image: url('./images/image.png');
+  background-size: cover;
+  background-position: center;
 }
 
 #timer-input {
@@ -58,9 +61,7 @@ body {
   background-image: url('./images/profile.png');
   background-size: cover;
   background-position: center;
-  visibility: visible;
-
-
+  visibility: hidden;
 }
 #login-button {
   visibility: visible;
@@ -86,7 +87,6 @@ body {
   left: 0;
   margin: 1rem;
   font-size: 1rem;
-  padding: 0.5rem;
   border: none;
   background-color: #fff;
   color: #000;
@@ -137,12 +137,6 @@ body {
   margin-bottom: x;
 }
 .urlList li, .taskList li {
-  font-size: 20px;
-  font-weight: 100;
-  margin-top: 2px ;
-  margin-bottom: 2px ;
-}
-.taskList li {
   font-size: 20px;
   font-weight: 100;
   margin-top: 2px ;
