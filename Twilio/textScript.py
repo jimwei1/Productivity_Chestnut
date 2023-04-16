@@ -2,6 +2,7 @@ from twilio.rest import Client
 import time
 import os
 import importlib.util
+import querying
 
 # Get the absolute path to the constants.py file
 constants_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'constants', 'constants.py'))
@@ -12,14 +13,12 @@ c = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(c)
 
 
-def client_initialization():
+def client_initialization() -> Client:
     """
     Initializes a client for Twilio.
     """
     twilio_sid = os.environ.get(c.twilio_sid_env_name)
     twilio_auth_token = os.environ.get(c.twilio_auth_key_env_name)
-    # twilio_creds = os.environ.get('twilio_env')
-    # print(twilio_creds)
     client = Client(twilio_sid, twilio_auth_token)
     return client
 
@@ -89,7 +88,47 @@ def alarm_triggered(destination_phone_number: str) -> tuple:
     return text_sids, call_sids
 
 
+def routineTextProcess(client: Client, cursor, listOfNumbers: list[str]) -> list:
+    """
+    Takes a list of numbers and sends a customized text with the person's name and tasks using SQL queries.
+    """
+    sid = []
+    for tup in listOfNumbers:
+        number = tup[0]
+        name = querying.query(c.sql_name_query + "'" + number + "'", cursor)
+        user_id = querying.query("SELECT id FROM users WHERE phone = '" + number + "'", cursor)
+        taskQuery = querying.query("SELECT name FROM tasks WHERE tasks.user_id =" + str(user_id[0][0]), cursor)
+        text_message = f"Hello {name}, it\'s time to work. \n You have the following tasks to accomplish: \n {taskQuery} \nWe know you've got this!"
+        sid.append(text(client, text_message, number))
+    return sid
+
+
+def motivationalCallProcess(client: Client, listOfNumbers: list[str]) -> list:
+    """
+    Makes a call to everyone on the list of numbers, but it's not personalized.
+    """
+    sid = []
+    for number in listOfNumbers:
+        sid.append(call(client, c.twilio_voice_recording_url, number))
+    return sid
+
+
 if __name__=="__main__":
     client = client_initialization()
-    sid = text(client, c.twilio_text_message, "+1 224 478 5394")
-    print(sid)
+    conn, cur = querying.open_database()
+    sids = []
+    listOfNumbers = querying.query(c.sql_numbers_query, cur)
+    current_time = time.gmtime()
+    if current_time[3] not in [15, 16, 17]:
+        try:
+            routineTextProcess(client, cur, listOfNumbers=listOfNumbers)
+        except:
+            pass
+    else:
+        try:
+            motivationalCallProcess(client, listOfNumbers=listOfNumbers)
+        except:
+            pass
+    sids.append(text(client, "It worked baby!", "+1 224 478 5394"))
+    print(sids)
+    querying.close_database(conn, cur)
