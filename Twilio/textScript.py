@@ -62,7 +62,6 @@ def call(client, recording_url: str, destination_phone_number: str) -> str:
         from_=c.twilio_source_phone_number,
         to=destination_phone_number
     )
-    print("")
     return message.sid
 
 
