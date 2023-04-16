@@ -6,9 +6,11 @@ Productivity Chestnut is a Chrome extension meant to boost productivity by combi
 Ideally, this extension is meant to be used in an educational setting, and would be connected to things like Canvas or Google Classroom to enable teachers or professors to push to-do lists to their students, who could also add personal tasks.
 
 ## How to Use
-As of 6:25 AM requires spin-up of node.js hosting on local machine.
+### Front-End
 
-Goal:  Set up lambda function to host instances of website upon clicking extension.
+
+### Texting
+If you'd like, you can prompt texts to send by going to GitHub -> Actions -> Demo textScript and then clicking run workflow.
 
 ## Video Demonstration
 [![Alt text](https://img.youtube.com/vi/VIDEO_ID/0.jpg)](https://www.youtube.com/watch?v=VIDEO_ID)

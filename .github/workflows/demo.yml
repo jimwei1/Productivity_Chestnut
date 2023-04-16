@@ -1,4 +1,4 @@
-name: Run textScript
+name: Demo textScript
 
 on:
   workflow_dispatch:
