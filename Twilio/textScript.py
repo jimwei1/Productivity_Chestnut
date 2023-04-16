@@ -58,7 +58,7 @@ def call(client, recording_url: str, destination_phone_number: str) -> str:
     The SID provided by the client upon sending the message.
     """
     message = client.calls.create(
-        twiml="callScript.xml",
+        twiml="./callScript.xml",
         from_=c.twilio_source_phone_number,
         to=destination_phone_number
     )
