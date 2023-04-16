@@ -22,5 +22,5 @@ jobs:
           source .venv/bin/activate
           cd Twilio
           export TWILIO_SID=5
-          export TWILIO_AUTH_TOKEN='${{ secrets.AUTH_TOKEN }}'
+          export TWILIO_AUTH_TOKEN='${{ secrets.TWILIO_AUTH_TOKEN }}'
           python textScript.py
