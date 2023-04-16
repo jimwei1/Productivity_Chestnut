@@ -18,7 +18,7 @@ jobs:
       - name: Run script
         env:
           TWILIO_SID: ${{ secrets.twilio_env.SID }}
-          TWILIO_AUTH_TOKEN: ${{ secrets.AUTH_TOKEN }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_ENV.AUTH_TOKEN }}
         run: |
           source .venv/bin/activate
           cd Twilio
