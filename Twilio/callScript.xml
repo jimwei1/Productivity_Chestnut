@@ -1,4 +1,4 @@
 <Response>
-  <Play>./callAudio.mp3</Play>
+  <Play>callAudio.mp3</Play>
   <Say>The folks at Chestnut and Twilio wish you a good day!</Say>
 </Response>
