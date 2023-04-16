@@ -96,8 +96,8 @@ def routineTextProcess(client: Client, cursor, listOfNumbers: list[str]) -> list
     """
     sid = []
     for number in listOfNumbers:
-        name = querying.query("", cursor) # TODO: Replace with query to get person's name based on phone number?
-        taskQuery = querying.query("", cursor) # TODO: Replace with query to get person's tasks based on phone number?
+        name = querying.query(c.sql_name_query, cursor) 
+        taskQuery = querying.query(c.sql_task_query, cursor)
         text_message = f"Hello {name}, it\'s time to work. \n You have the following tasks to accomplish: \n {taskQuery} \nWe know you've got this!"
         sid.append(text(client, text_message, number))
     return sid
@@ -117,7 +117,7 @@ if __name__=="__main__":
     client = client_initialization()
     conn, cur = querying.open_database()
     sids = []
-    listOfNumbers = querying.query("", cur) # TODO: replace with query to get all phone numbers
+    listOfNumbers = querying.query(c.sql_numbers_query, cur)
     current_time = time.gmtime()
     if current_time[3] not in [15, 16, 17]:
         routineTextProcess(client, cur, listOfNumbers=listOfNumbers)
