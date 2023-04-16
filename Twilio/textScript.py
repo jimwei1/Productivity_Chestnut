@@ -117,6 +117,7 @@ if __name__=="__main__":
     conn, cur = querying.open_database()
     sids = []
     listOfNumbers = querying.query(c.sql_numbers_query, cur)
+    print(f"\n\n{listOfNumbers}\n\n {type(listOfNumbers)}")
     current_time = time.gmtime()
     if current_time[3] not in [15, 16, 17]:
         routineTextProcess(client, cur, listOfNumbers=listOfNumbers)
