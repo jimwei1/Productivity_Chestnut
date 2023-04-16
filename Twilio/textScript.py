@@ -91,5 +91,5 @@ def alarm_triggered(destination_phone_number: str) -> tuple:
 
 if __name__=="__main__":
     client = client_initialization()
-    sid = text(client, "This is a test", "+1 224 478 5394")
+    sid = text(client, c.twilio_text_message, "+1 224 478 5394")
     print(sid)
