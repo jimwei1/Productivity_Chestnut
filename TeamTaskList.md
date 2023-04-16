@@ -33,5 +33,6 @@
     - Enable pushing of data from front-end to SQL database
     - Spin up Lambda function to host website upon click (which should hopefully be a get or put request?)
     - Use API Gateway to deal with the HTTP request
+        - Free .tech domain name available, see Opening Presentation slides (win that backpack)
 
 # Sprint 3: Presentation Preparation
