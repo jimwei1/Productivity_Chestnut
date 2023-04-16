@@ -17,7 +17,7 @@
 
   "background": {
     "service_worker": [
-      "./Blocking/blocker.js"
+      "src/blocker.js"
     ]
   }
 

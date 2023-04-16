@@ -61,6 +61,7 @@ body {
   background-image: url('./images/profile.png');
   background-size: cover;
   background-position: center;
+  visibility: hidden;
 }
 #settings-button {
   font-size: 1rem;

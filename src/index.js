@@ -1,3 +1,16 @@
+var blockedSites = ["facebook.com", "twitter.com", "instagram.com"];
+
+// Get the current URL
+var currentUrl = window.location.href;
+
+// Check if the current URL matches the list of blocked websites
+for (var i = 0; i < blockedSites.length; i++) {
+  if (currentUrl.indexOf(blockedSites[i]) !== -1) {
+    // Redirect to a custom message page
+    window.location.replace("http://google.com");
+  }
+}
+
 window.onload = function (e) {
   //Initialize the correct app
 
@@ -121,6 +134,7 @@ window.onload = function (e) {
         v_task: "",
         token: null,
         events: ["hi"],
+        dcConn: "",
       
 
       };
@@ -276,30 +290,17 @@ window.onload = function (e) {
         let popup = document.getElementById("signup-popup");
         popup.classList.remove("open-popup");
       },
-      addUrl() {//add call to database
-        if (this.newUrl != "") {
+      addUrl() {
+        if(this.newUrl!="") {
           this.urls.push(this.newUrl);
         }
-        console.log(this.urls);
-        
-      },
-      performQuery(connection, queryCode){
-        connection.query(queryCode, (err, res) => {
-          if (err) throw err;
-          console.log(res.rows);
-          pool.end();
-        });
-
-      },
-      addUrl() {
         const url = 'http://localhost:3001/api/blocking';
-        
         const data = { url: this.newUrl};
-        if (this.token != null){
+        if (window.localStorage.getItem("token") != null){
           fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token}
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("token")}
           })
           .then(response => {
             if (response.ok) {
@@ -317,24 +318,19 @@ window.onload = function (e) {
         
       },
       addTask() {
-        if (this.v_task != "") {
-          this.tasks.push(this.v_task); //will change to get task from database
-          console.log(this.tasks);
-        }
         if(this.v_duedate <= "2023-04-16"){
           alert("need a future data");
           return;
         }
         
-        console.log(this.token)
         const url = 'http://localhost:3001/api/tasks';
         
         const data = { name: this.v_task, priority: 3, due_date: this.v_duedate };
-        if (this.token != null){
+        if (window.localStorage.getItem("token") != null){
           fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
-            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + this.token}
+            headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' +  window.localStorage.getItem("token")}
           })
           .then(response => {
             if (response.ok) {
@@ -355,8 +351,6 @@ window.onload = function (e) {
 
       
         logUser(){
-          console.log(this.v_username);
-          console.log(this.v_password);
           const url2 = 'http://localhost:3001/api/login';
           const data2 = {username: this.v_username, password: this.v_password}
           fetch(url2, {
@@ -367,7 +361,7 @@ window.onload = function (e) {
           .then(response => {
             if (response.ok) {
               response.json().then(data => {
-                this.token = data.token;
+                window.localStorage.setItem("token", data.token);
               });
               this.hideLogin();
               const logbutton = document.getElementById("login-button");
@@ -376,7 +370,52 @@ window.onload = function (e) {
               signbutton.style.visibility = "hidden";
               const profileButton = document.getElementById("profile-button");
               profileButton.style.visibility = "visible";
-              
+
+
+              const urlTask = 'http://localhost:3001/api/tasks';
+              fetch(urlTask, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("token") }
+              })
+              .then(response => {
+                if (response.ok) {
+                  response.json().then(data => {
+                    
+                    for (let aTask in data) {
+                      this.tasks.push(data[aTask]["name"]+", "+data[aTask]["due_date"]);
+                    }
+                  });
+                  
+                }
+                else {
+                  console.error('Error finding tasks:', response.statusText);
+                }
+              })
+              .catch(error => console.error('Error finding tasks:', error));
+
+              const urlTask2 = 'http://localhost:3001/api/blocking';
+              fetch(urlTask2, {
+                method: 'GET',
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + window.localStorage.getItem("token") }
+              })
+              .then(response2 => {
+                if (response2.ok) {
+                  response2.json().then(data => {
+                    console.log(data)
+                    for (let aUrl in data) {
+                      console.log(data[aUrl]["url"])
+                      this.urls.push(data[aUrl]["url"]);
+                    }
+                  });
+                  
+                }
+                else {
+                  console.error('Error finding tasks:', response.statusText);
+                }
+              })
+              .catch(error => console.error('Error finding tasks:', error));
+
+            
 
             } else {
               console.error('Error logging in:', response.statusText);

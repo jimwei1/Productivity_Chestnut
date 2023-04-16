@@ -34,7 +34,7 @@ def createBlockList(categories: str, recursions: int=0) ->:
     Outputs:
     No explicit output, it dumps the URL blocklist into blockList.json as a list of URL strings.
     """
-    queryString = f"Please generate a comma-separated list of URLs of the most popular websites in the following categories: {categories}"
+    queryString = "Please generate a comma-separated list of URLs of the most popular websites in the following categories: {categories}"
     messages = createGPTMessage(queryString)
     response = makeGPTRequest(messages=messages)
     if response['choices'][0]['finish_reason'] != 'stop':
