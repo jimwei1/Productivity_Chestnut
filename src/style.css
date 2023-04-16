@@ -121,6 +121,7 @@ body {
   color: #333;
   visibility: hidden;
   transition: transform 0.2s, visibility 0.2s;
+  border: 1px solid black;
 }
 
 .open-popup {

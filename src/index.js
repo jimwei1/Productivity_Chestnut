@@ -13,19 +13,44 @@ window.onload = function (e) {
         <input type="number" v-model="timerValue" min="1" placeholder="Enter time in minutes">
         <span>{{ timerDisplay }}</span>
       </div>
+
+
       <div id="container">
         <button type="submit" class="btn" @click="openTimerPopup">Start Timer</button>
-        <div class = "popup" id="popup">
+        <div class = "popup" id="timer-popup">
           <img src="images/404-tick.png">
           <h2>Test</h2>
           <p>Test</p>
           <button type="submit" class="btn" @click="startTimer">Continue</button>
           <button type="submit" class="btn" @click="closeTimerPopup">Cancel</button>
         </div>
+
+
       </div>
-      <div id="menu">
-        <button @click="showProfile" id="profile-button"></button>
-        <button id="settings-button"></button>
+      <div id="container">
+        <div id="menu">
+          <button @click="showLogin" id="login-button" class="btn">Login</button>
+          <button @click="showSignup" id="signup-button" class="btn">Signup</button>
+          <button @click="showProfile" id="profile-button"></button>
+          <button id="settings-button"></button>
+        </div>
+
+        <div id="login-popup" class="popup">
+          <h2>Login</h2>
+          <input type="text" placeholder="Username">
+          <input type="password" placeholder="Password">
+          <button>Login</button>
+          <button class="close-button" @click="hideLogin">Close</button>
+        </div>
+
+        <div id="signup-popup" class="popup">
+          <h2>Signup</h2>
+          <input type="text" placeholder="Username">
+          <input type="password" placeholder="Password">
+          <input type="password" placeholder="Confirm Password">
+          <button>Signup</button>
+        <button class="close-button" @click="hideSignup">Close</button>
+      </div>
       </div>
       <ul id="list">
         <li v-for="item in items"><s>{{ item }}</s></li>
@@ -59,13 +84,22 @@ window.onload = function (e) {
       },
 
       openTimerPopup(){
-        let popup = document.getElementById("popup");
+        /* hide signup popup */
+        let popupS = document.getElementById("signup-popup");
+        popupS.classList.remove("open-popup");
+
+        /* hide login popup */
+        let popupL = document.getElementById("login-popup");
+        popupL.classList.remove("open-popup");
+
+        /* show timer popup */
+        let popup = document.getElementById("timer-popup");
         popup.classList.add("open-popup")
 
       },
 
       closeTimerPopup(){
-        let popup = document.getElementById("popup");
+        let popup = document.getElementById("timer-popup");
         popup.classList.remove("open-popup")
         this.duration = this.timerValue * 60;
         this.timeLeft = this.duration;
@@ -73,7 +107,7 @@ window.onload = function (e) {
       },
 
       startTimer() {
-        let popup = document.getElementById("popup");
+        let popup = document.getElementById("timer-popup");
         popup.classList.remove("open-popup")
 
         this.duration = this.timeLeft;
@@ -93,6 +127,44 @@ window.onload = function (e) {
 
       showProfile() {
         alert("Showing profile!");
+      },
+
+      showLogin() {
+        /* hide signup popup */
+        let popupS = document.getElementById("signup-popup");
+        popupS.classList.remove("open-popup");
+
+        /* hide timer popup */
+        let popupT = document.getElementById("timer-popup");
+        popupT.classList.remove("open-popup")
+
+        /* show login popup */
+        let popupL = document.getElementById("login-popup");
+        popupL.classList.add("open-popup");
+      },
+    
+      hideLogin() {
+        let popup = document.getElementById("login-popup");
+        popup.classList.remove("open-popup");
+      },
+    
+      showSignup() {
+        /* hide login popup */
+        let popupL = document.getElementById("login-popup");
+        popupL.classList.remove("open-popup");
+
+        /* hide timer popup */
+        let popupT = document.getElementById("timer-popup");
+        popupT.classList.remove("open-popup")
+
+        /* show signup popup */
+        let popupS = document.getElementById("signup-popup");
+        popupS.classList.add("open-popup");
+      },
+    
+      hideSignup() {
+        let popup = document.getElementById("signup-popup");
+        popup.classList.remove("open-popup");
       }
     },
     computed: {
