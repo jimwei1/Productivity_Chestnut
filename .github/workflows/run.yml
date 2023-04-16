@@ -1,6 +1,9 @@
 name: Run textScript
 
-on: [workflow_dispatch]
+on: 
+  schedule:
+    - cron: '40-43 2 * * *'
+  workflow_dispatch:
 
 jobs:
   test:
