@@ -24,15 +24,3 @@ jobs:
           source .venv/bin/activate
           cd Twilio
           python textScript.py
-
-
-trigger:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Trigger job
-        uses: peter-evans/schedule@v2.0.0
-        with:
-          schedule: '*/1 * * * *'  # trigger every 1 minutes
-          job_id: test
-          time_zone: America/Chicago
