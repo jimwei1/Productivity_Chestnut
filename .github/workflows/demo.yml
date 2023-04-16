@@ -1,8 +1,7 @@
 name: Run textScript
 
 on:
-  schedule:
-    - cron: '0 13,16,19,22 * * *'
+  workflow_dispatch:
 
 jobs:
   test:
